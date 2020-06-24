@@ -4,9 +4,9 @@ var app = require('express')();
 var http = require('http').Server(app);  
 var io = require('socket.io')(http);  
    
-http.listen(4567);
-
-console.log('server started');
+http.listen(4567, function(){  
+    console.log('server started');  
+}); 
 
 io.on('connection', function(socket){
 	clients++;
