@@ -1,10 +1,10 @@
 let clients=0;
 
-var io = require('socket.io')({
-	transports: ['websocket'],
-});
-
-io.attach(4567);
+var app = require('express')();  
+var http = require('http').Server(app);  
+var io = require('socket.io')(http);  
+   
+http.listen(4567);
 
 console.log('server started');
 
