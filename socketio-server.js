@@ -18,15 +18,28 @@ io.on('connection', function(socket){
 	//io.sockets.emit('boop') ;
 	//socket.on('message', function(message, callback) {});
 	
+	//for json format strings, sent to other clients not including the sender.
 	socket.on('message', function(msg){
-        console.log('received a message:'+msg.content);
-        socket.broadcast.emit('message',msg);
-    });
-    
-    socket.on('messageall', function(msg){
-        console.log('received a message:'+msg.content);
-        io.sockets.emit('messageall',msg) ;
-    });
+        	console.log('received a message:'+msg.content);
+        	socket.broadcast.emit('message',msg);
+    	});
+    	//for byte array, sent to other clients not including the sender.
+	socket.on('bytes', function(msg){
+        	console.log('received a bytes');
+        	socket.broadcast.emit('bytes',msg);
+    	});
+	
+	//for json format strings, sent to all clients, including message senders.
+    	socket.on('messageall', function(msg){
+        	console.log('received a message:'+msg.content);
+        	io.sockets.emit('messageall',msg) ;
+    	});
+	
+	//for byte array, sent to all clients, including message senders.
+	socket.on('bytesall', function(msg){
+        	console.log('received a bytes');
+        	io.sockets.emit('bytesall',msg) ;
+    	});
     
 	socket.on('disconnect', function () {
 		clients--;
