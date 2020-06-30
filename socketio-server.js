@@ -23,28 +23,17 @@ io.on('connection', function(socket){
         	console.log('received a message:'+msg.content);
         	socket.broadcast.emit('message',msg);
     	});
-    	//for byte array, sent to other clients not including the sender.
-	socket.on('bytes', function(msg){
-        	console.log('received a bytes');
-        	socket.broadcast.emit('bytes',msg);
-    	});
 	
 	//for json format strings, sent to all clients, including message senders.
     	socket.on('messageall', function(msg){
         	console.log('received a message:'+msg.content);
         	io.sockets.emit('messageall',msg) ;
     	});
-	
-	//for byte array, sent to all clients, including message senders.
-	socket.on('bytesall', function(msg){
-        	console.log('received a bytes');
-        	io.sockets.emit('bytesall',msg) ;
-    	});
     
 	socket.on('disconnect', function () {
 		clients--;
-        console.log('client disconnected');
-        console.log('client num:'+clients);
-    });
+        	console.log('client disconnected');
+        	console.log('client num:'+clients);
+    	});
 });
  
