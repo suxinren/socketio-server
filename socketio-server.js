@@ -29,6 +29,16 @@ io.on('connection', function(socket){
         	console.log('received a message:'+msg.content);
         	io.sockets.emit('messageall',msg) ;
     	});
+	
+	socket.on('binary', (data) => {
+        	data.id = socket.id;
+        	socket.broadcast.emit('binary', data);
+   	});
+    
+    	socket.on('binaryall', (data) => {
+        	data.id = socket.id;
+        	io.sockets.emit('binaryall', data);
+    	});
     
 	socket.on('disconnect', function () {
 		clients--;
