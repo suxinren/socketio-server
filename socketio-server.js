@@ -13,31 +13,21 @@ io.on('connection', function(socket){
 	console.log('client connected');
 	console.log('client num:'+clients);
 	
-	//socket.emit('boop');
-	//socket.broadcast.emit('boop');
-	//io.sockets.emit('boop') ;
+	//socket.emit('message');
+	//socket.broadcast.emit('message');
+	//io.sockets.emit('message') ;
 	//socket.on('message', function(message, callback) {});
 	
-	//for json format strings, sent to other clients not including the sender.
+	//sent to other clients not including the sender.
 	socket.on('message', function(msg){
-        	console.log('received a message:'+msg.content);
+        	console.log('received a message');
         	socket.broadcast.emit('message',msg);
     	});
 	
-	//for json format strings, sent to all clients, including message senders.
+	//sent to all clients, including message senders.
     	socket.on('messageall', function(msg){
-        	console.log('received a message:'+msg.content);
+        	console.log('received a message');
         	io.sockets.emit('messageall',msg) ;
-    	});
-	
-	socket.on('binary', (data) => {
-        	data.id = socket.id;
-        	socket.broadcast.emit('binary', data);
-   	});
-    
-    	socket.on('binaryall', (data) => {
-        	data.id = socket.id;
-        	io.sockets.emit('binaryall', data);
     	});
     
 	socket.on('disconnect', function () {
